@@ -1,24 +1,23 @@
-TypeScript Function Generator Demo
-=================================
+TypeScript Function Generator Next with Argument Demo
+=====================================================
 
-Function generator通过yield关键字，可以把一个函数的执行过程变成可暂停的多段，
-每次调用.next()就会向前执行完下一个yield后暂停。
+Function generator中有一个非常迷惑人的语法：
 
-可以实现很强大的功能，比如异步、批处理、暂停/继续，等等，但是由于功能太强大且难以掌握，
-所以在实际项目中很少使用，多数情况使用async/await
+```
+const x = yield a+b
+```
+
+看起来似乎是把`a+b`的值赋给了`x`，实际上它们之间没有一毛钱关系。
+
+当我们调用`.next()`的时候，代码会执行到`const x = yield a+b`的右段`yield a+b`，并且把值当作`.next()`的返回值返回给调用者，
+然后代码就停在那里了。
+
+直到下一次调用`.next`，才会继续执行`const x =`。但是`x`的值从哪里来呢？是从`.next(???)`的参数`???`传进来的，`x = ???`,
+然后继续执行到下一个`yield`，把它后面的值返回出去。
+
+这一处是我之前一直没有理解的地方。
 
 ```
 npm install
 npm run demo
 ```
-
-Note:
-
-`esModuleInterop` is recommended to set to `true`,
-since we can have consistent importing syntax with babel,
-always use:
-
-```
-import some from 'some'
-```
-

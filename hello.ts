@@ -1,14 +1,14 @@
-console.log('Hello');
-
-function* idMaker() {
-  let index = 0;
-  while (true)
-    yield index++;
+function* gen() {
+  const x = yield 1
+  console.log(x);
 }
 
-const gen = idMaker();
-console.log(gen.next().value); // 0
-console.log(gen.next().value); // 1
-console.log(gen.next().value); // 2
-console.log(gen.next().value);
 
+const g1 = gen();
+console.log(g1.next());
+g1.next()
+
+
+const g2 = gen();
+console.log(g2.next());
+g2.next(100)
